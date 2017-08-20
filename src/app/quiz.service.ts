@@ -5,10 +5,10 @@ import 'rxjs/add/operator/toPromise';
 
 import { Quiz, Repository, Question, LANGUAGES } from './quiz';
 import { REPOSITORIES } from './mock-repository';
-import { getCountQuestions, inplaceShuffle } from './utils';
+import { inplaceShuffle } from './utils';
 
 const CHOISES_COUNT = 4;
-const COUNT_QUESTIONS = getCountQuestions();
+const COUNT_QUESTIONS = 7;
 
 
 @Injectable()

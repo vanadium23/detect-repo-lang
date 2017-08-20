@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Quiz } from './quiz';
 import { QuizService } from './quiz.service';
-import {GoogleAnalyticsEventsService} from './google-analytics-events.service';
+import { Angulartics2 } from 'angulartics2';
 
 @Component({
   selector: 'app-root',
@@ -18,7 +18,21 @@ export class AppComponent {
   userScore: number = 0;
   userAnswer: string;
 
-  constructor(private quizService: QuizService, private ga: GoogleAnalyticsEventsService) { }
+  constructor(private quizService: QuizService, private angulartics2: Angulartics2) { }
+
+  emitEvent(eventCategory: string,
+    eventAction: string,
+    eventLabel: string = null,
+    eventValue: number = null) {
+      this.angulartics2.eventTrack.next({
+        action: eventAction,
+        properties: {
+          category: eventCategory,
+          lavel: eventLabel,
+          value: eventValue
+        }
+      });
+  }
 
   startQuiz() {
     this.quizService.getQuiz().then(quiz => {
@@ -29,10 +43,10 @@ export class AppComponent {
         this.quiz = quiz;
         this.step = 'quiz';
 
-        this.ga.emitEvent('detect-repo-lang', 'quizStarted', 'quizLength', quiz.questions.length);
+        this.emitEvent('detect-repo-lang', 'quizStarted', 'quizLength', quiz.questions.length);
       } else {
         this.step = 'error';
-        this.ga.emitEvent('detect-repo-lang', 'quizError');
+        this.emitEvent('detect-repo-lang', 'quizError');
       }
     })
   }
@@ -42,7 +56,7 @@ export class AppComponent {
       this.userAnswer = answer;
       if (answer == this.quiz.questions[this.questionIndex].answer) {
         this.userScore += 1;
-        this.ga.emitEvent('detect-repo-lang', 'quizCorrectAnswer');
+        this.emitEvent('detect-repo-lang', 'quizCorrectAnswer');
       }
     }
   }
@@ -52,7 +66,7 @@ export class AppComponent {
     this.questionIndex++;
     if(this.questionIndex >= this.quiz.questions.length) {
       this.step = 'finish';
-      this.ga.emitEvent('detect-repo-lang', 'quizFinished', 'userScore', this.userScore);
+      this.emitEvent('detect-repo-lang', 'quizFinished', 'userScore', this.userScore);
     }
   }
 

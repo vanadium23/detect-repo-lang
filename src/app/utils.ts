@@ -1,12 +1,3 @@
-import { isDevMode } from '@angular/core';
-
-export function getCountQuestions(): number {
-    if (isDevMode()) {
-        return 2;
-    } else {
-        return 10;
-    }
-}
   
 export function inplaceShuffle(a: Array<string>) {
     for(let i = a.length; i; i--) {
