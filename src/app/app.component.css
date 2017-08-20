@@ -1,0 +1,45 @@
+
+.container {
+	height: 100vh; 
+	display: flex; 
+	align-items: center; 
+    justify-content: center;
+}
+
+.quiz-card {
+    min-width: 50%;
+    min-height: 50%;
+    max-width: 650px;
+    background: #fff;
+}
+
+.center-content {
+    justify-content: center;
+    text-align: center;
+}
+
+.quiz-description {
+    margin: 0 10px 10px 0;
+    text-align: justify;
+}
+
+.quiz-button {
+    height: 100%;
+    width: 100%;
+}
+
+.incorrect-user-answer {
+    background: #f00;
+}
+
+.correct-answer {
+    background: #0f0;
+}
+
+.disabled-answer {
+    background: #bbb;
+}
+
+.quiz-next-question {
+    min-height: 52px;
+}

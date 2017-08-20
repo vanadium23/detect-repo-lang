@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('repolang App', () => {
+describe('detect-repo-lang App', () => {
   let page: AppPage;
 
   beforeEach(() => {
