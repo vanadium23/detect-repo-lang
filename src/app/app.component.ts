@@ -40,13 +40,13 @@ export class AppComponent {
         this.questionIndex = 0;
         this.userScore = 0;
 
+        this.emitEvent('detect-repo-lang', 'quizStarted', 'quizLength', quiz.questions.length);
+
         this.quiz = quiz;
         this.step = 'quiz';
-
-        this.emitEvent('detect-repo-lang', 'quizStarted', 'quizLength', quiz.questions.length);
       } else {
-        this.step = 'error';
         this.emitEvent('detect-repo-lang', 'quizError');
+        this.step = 'error';
       }
     })
   }
@@ -55,8 +55,8 @@ export class AppComponent {
     if(this.userAnswer === undefined) {
       this.userAnswer = answer;
       if (answer == this.quiz.questions[this.questionIndex].answer) {
-        this.userScore += 1;
         this.emitEvent('detect-repo-lang', 'quizCorrectAnswer');
+        this.userScore += 1;
       }
     }
   }
@@ -65,8 +65,8 @@ export class AppComponent {
     this.userAnswer = undefined;
     this.questionIndex++;
     if(this.questionIndex >= this.quiz.questions.length) {
-      this.step = 'finish';
       this.emitEvent('detect-repo-lang', 'quizFinished', 'userScore', this.userScore);
+      this.step = 'finish';
     }
   }
 
