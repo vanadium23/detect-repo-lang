@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { Quiz } from './quiz';
 import { QuizService } from './quiz.service';
-import { Angulartics2 } from 'angulartics2';
+
 
 @Component({
   selector: 'app-root',
@@ -18,20 +18,20 @@ export class AppComponent {
   userScore: number = 0;
   userAnswer: string;
 
-  constructor(private quizService: QuizService, private angulartics2: Angulartics2) { }
+  constructor(private quizService: QuizService) { }
 
   emitEvent(eventCategory: string,
     eventAction: string,
     eventLabel: string = null,
     eventValue: number = null) {
-      this.angulartics2.eventTrack.next({
-        action: eventAction,
-        properties: {
-          category: eventCategory,
-          lavel: eventLabel,
-          value: eventValue
-        }
-      });
+      if (typeof window['ga'] !== 'undefined') {
+        window['ga']('send', 'event', {
+          eventCategory: eventCategory,
+          eventLabel: eventLabel,
+          eventAction: eventAction,
+          eventValue: eventValue
+        });
+      }
   }
 
   startQuiz() {
@@ -55,7 +55,7 @@ export class AppComponent {
     if(this.userAnswer === undefined) {
       this.userAnswer = answer;
       if (answer == this.quiz.questions[this.questionIndex].answer) {
-        this.emitEvent('detect-repo-lang', 'quizCorrectAnswer');
+        this.emitEvent('detect-repo-lang', 'quizCorrectAnswer', answer);
         this.userScore += 1;
       }
     }

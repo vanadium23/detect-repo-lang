@@ -4,8 +4,6 @@ import { NgModule } from '@angular/core';
 import { MdCardModule, MdGridListModule, MdButtonModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
-import { Angulartics2Module, Angulartics2GoogleAnalytics } from 'angulartics2';
-
 import { AppComponent } from './app.component';
 import { QuizService } from './quiz.service';
 
@@ -21,9 +19,6 @@ import { QuizService } from './quiz.service';
     MdCardModule,
     MdGridListModule,
     MdButtonModule,
-
-    Angulartics2Module.forRoot([ Angulartics2GoogleAnalytics ]),
-    RouterModule.forRoot([])
   ],
   providers: [
     QuizService,
